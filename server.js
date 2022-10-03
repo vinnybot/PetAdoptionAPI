@@ -4,6 +4,7 @@ const express = require('express');
 const { nanoid } = require('nanoid');
 const config = require('config');
 const dbModule = require('./database');
+
 //construct express app
 const app = express();
 app.use(express.urlencoded({ extended: false }));
@@ -11,6 +12,7 @@ app.use(express.json());
 
 //define routes
 app.use(require('./routes/api/pet'));
+
 //handle errors
 app.use((req,res,next) =>{
   res.status(404).json({error:'Page not found!'});

@@ -15,7 +15,7 @@
     "start": "node server.js",
     "start-dev": "nodemon -r dotenv/config server.js"
   },
-  "author": "Amel Topalovic",
+  "author": "Vincent Bottini",
   "license": "MIT",
   "description": ""
 }

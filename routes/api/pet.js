@@ -4,7 +4,6 @@ const { parse } = require('dotenv');
 const express = require('express');
 const { nanoid } = require('nanoid');
 const dbModule = require('../../database');
-
 // const petsArray = [
 //   { _id: '1', name: 'Fido', createdDate: new Date() },
 //   { _id: '2', name: 'Watson', createdDate: new Date() },
@@ -37,6 +36,7 @@ router.get('/api/pet/:petId', async (req, res, next) => {
     next(err);
   }
 });
+
 //create
 router.put('/api/pet/new', async (req, res, next) => {
   try {
@@ -46,8 +46,6 @@ router.put('/api/pet/new', async (req, res, next) => {
       name: req.body.name,
       age: parseInt(req.body.age),
       gender: req.body.gender,
-      createdDate: new Date(),
-
     };
 
   //validation
@@ -67,11 +65,13 @@ router.put('/api/pet/new', async (req, res, next) => {
     next(err);
   }
 });
+
 //update
 router.put('/api/pet/:petId', async (req, res, next) => {
   try{
     const petId = dbModule.newId(req.params.petId);
     const update = req.body;
+
     debug(`update pet ${petId}`, update);
 
     const pet = await dbModule.findPetById(petId);

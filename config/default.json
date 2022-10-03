@@ -4,7 +4,7 @@
       "port": 5000
     },
     "db": {
-      "url": "mongodb+srv://ameltopalovic:Zboriste12@cluster0.exjpzef.mongodb.net/?retryWrites=true&w=majority",
+      "url": "DB_URL",
       "name": "pet-adoption"
     }
   }
