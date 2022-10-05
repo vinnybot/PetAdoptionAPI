@@ -4,6 +4,28 @@ const express = require('express');
 const { nanoid } = require('nanoid');
 const config = require('config');
 const dbModule = require('./database');
+const { ObjectId } = require('mongodb');
+const Joi = require('joi');
+
+Joi.objectId = () => {
+  return Joi.any().custom((value, helpers) => {
+    try {
+      if (!value) {
+          return helpers.error('any.objectId');
+      }
+      else if (typeof value !== 'string' && typeof value !== 'object') {
+          return helpers.error('any.objectId');
+      } else {
+          return new ObjectId(value);
+      }
+  }   catch (err) {
+          return helpers.error('any.objectId');
+  }
+  })
+  .rule({
+    message: { 'any.objectId': '{#label} was not a valid ObjectId' }
+  })
+};
 
 //construct express app
 const app = express();
