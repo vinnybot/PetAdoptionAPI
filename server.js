@@ -33,7 +33,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 //define routes
-app.use(require('./routes/api/pet'));
+app.use('/api/pet', require('./routes/api/pet'));
+app.use('/api/user', require('./routes/api/user'));
 
 //handle errors
 app.use((req,res,next) =>{
