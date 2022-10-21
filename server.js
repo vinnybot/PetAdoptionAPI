@@ -7,6 +7,22 @@ const dbModule = require('./database');
 const { ObjectId } = require('mongodb');
 const Joi = require('joi');
 
+if (!config.get('db.url')) {
+  throw new Error('db.url not defined!');
+}
+if (!config.get('auth.secret')) {
+  throw new Error('auth.secret not defined!');
+}
+if (!config.get('auth.tokenExpiresIn')) {
+  throw new Error('auth.tokenExpiresIn not defined!');
+}
+if (!config.get('auth.cookieMaxAge')) {
+  throw new Error('auth.cookieMaxAge not defined!');
+}
+if (!config.get('auth.saltRounds')) {
+  throw new Error('auth.saltRounds not defined!');
+}
+
 Joi.objectId = () => {
   return Joi.any().custom((value, helpers) => {
     try {
@@ -31,6 +47,8 @@ Joi.objectId = () => {
 const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(require('cookie-parser')());
+app.use(require('./middleware/auth')());
 
 //define routes
 app.use('/api/pet', require('./routes/api/pet'));
